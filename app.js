@@ -51,6 +51,13 @@ app.get('/cg/:id/edit', async (req,res) => {
     res.render('cg/edit',{id});
 });
 
+app.delete('/cg/:id', async (req,res) => {
+    const {id} = req.params;
+    await Campground.findByIdAndDelete(id);
+    // res.send('DELETED @#');
+    res.redirect(`/cg`);
+});
+
 app.get('/cg/:id', async (req,res) => {
     const {id}  = req.params;
     const a = await Campground.findById(id);
