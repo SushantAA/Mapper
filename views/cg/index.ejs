@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>cg all</h1>
+    <a href="/cg/new">create new</a> <br>
+    <% for(let a of all_cg){ %>
+        <div style="display: inline-block; background-color: orange; width: 400px; margin-bottom: 3px;">
+            <ul>
+                <li>title : <%= a.title %> </li>
+                <a href="/cg/<%= a._id %>">more</a>
+            </ul>
+        </div>
+    <% } %>
+</body>
+</html>
