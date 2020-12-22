@@ -1,11 +1,17 @@
 <% layout('layout/boilerplate') %> 
     <h1>cg all</h1>
     <a href="/cg/new">create new</a> <br>
+    <div class="row" >
     <% for(let a of all_cg){ %>
-        <div style="display: inline-block; background-color: orange; width: 300px; margin-bottom: 3px;">
-            <ul>
-                <li>title : <%= a.title %> </li>
-                <a href="/cg/<%= a._id %>">more</a>
-            </ul>
+        <div class="col-auto">
+            <div class="card m-2" style="width: 18rem;">
+                <img  src="<%= a.image %> " class="card-img-top" >
+                <div class="card-body">
+                <h5 class="card-title"><%= a.title %></h5>
+                <p class="card-text"><%= a.location %></p>
+                <a href="/cg/<%= a._id %>" class="btn btn-primary">Details</a>
+                </div>
+            </div>
         </div>
     <% } %>
+    </div>

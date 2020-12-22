@@ -1,23 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>NEW</h1>
+<% layout('layout/boilerplate') %> 
+    <!-- <h1>NEW</h1>
     <form action="/cg" method="POST" >
         <label for="title">Title : </label>
         <input type="text" id="title" name="title" for="title"><br>
-        <!-- <label for="price">Price : </label>
-        <input type="number" id="price" name="price" for="price"><br>
-        <label for="discription">Discription : </label>
-        <input type="text" name="discription" id="discription" for= "discription"><br> -->
         <label for="location">Location : </label>
         <input type="text" name="location" id="location" for = "location"><br>
         <button>submit</button>
     </form>
-    <a href="/cg">back</a>
-</body>
-</html>
+    <a href="/cg">back</a> -->
+
+<div class="row">
+<h1 class="text-center">New Mappe</h1>
+<div class="col-6 offset-3">
+
+    <form action="/cg" method="POST" >
+
+        <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Title</label>
+            <input type="text" name="title" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder">
+        </div>
+
+        <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Location</label>
+            <input type="text" name="location" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder">
+        </div>
+
+        <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Discription</label>
+            <textarea class="form-control" name="discription" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+        </div>
+        
+        <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Image</label>
+            <input type="text" name="image" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder">
+        </div>
+
+        <div class="mb-3">
+            <div class="input-group">
+              <div class="input-group-text">$</div>
+              <input type="number" name="price" class="form-control" id="autoSizingInputGroup" placeholder="0.0">
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <button class="btn btn-success">submit</button>
+        </div>
+    </form>
+    <div class="mb-3">
+        <a href="/cg" class="btn btn-primary" >back</a>
+    </div>
+</div>
+</div>
