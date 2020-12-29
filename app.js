@@ -4,6 +4,7 @@ const path = require('path');
 const Campground = require('./models/campground');
 const methodOverride = require('method-override');;
 const ejsMate = require('ejs-mate');
+const {reviewSchema}  = require('./schemas');
 const { type } = require('os');
 const catchAsync = require('./utilities/catchAsync');
 const expresError = require('./utilities/expressError');
@@ -51,7 +52,20 @@ const validatecg = (req,res,next) => {
 }
 
 
-app.post('/cg/:id/reviews',async (req,res)=>{
+const validateReview = (req,res,next) => {
+    const {error} = reviewSchema.validate(req.body);
+    
+    if(error){
+        const msg = error.details.map(el=>el.message).join(',');
+        console.log(msg);
+        throw new expresError(msg,400);
+    }else{
+        next();
+    }
+}
+
+
+app.post('/cg/:id/reviews', validateReview ,async (req,res)=>{
     const id = req.params.id;
     console.log(req.body);
     const campground = await Campground.findById(req.params.id);
