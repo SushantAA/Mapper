@@ -1,44 +1,50 @@
 <% layout('layout/boilerplate') %> 
-    <!-- <h1>NEW</h1>
-    <form action="/cg" method="POST" >
-        <label for="title">Title : </label>
-        <input type="text" id="title" name="title" for="title"><br>
-        <label for="location">Location : </label>
-        <input type="text" name="location" id="location" for = "location"><br>
-        <button>submit</button>
-    </form>
-    <a href="/cg">back</a> -->
 
 <div class="row">
 <h1 class="text-center">New Mappe</h1>
 <div class="col-6 offset-3">
 
-    <form action="/cg" method="POST" >
+    <form action="/cg" method="POST" novalidate class="new-edit-validation" >
 
         <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Title</label>
-            <input type="text" name="title" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder">
+            <input type="text" name="title" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
         </div>
 
         <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Location</label>
-            <input type="text" name="location" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder">
+            <input type="text" name="location" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder"  required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
         </div>
 
         <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Discription</label>
-            <textarea class="form-control" name="discription" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+            <textarea class="form-control" name="discription" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" required></textarea>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
         </div>
         
         <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Image</label>
-            <input type="text" name="image" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder">
+            <input type="text" name="image" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
         </div>
 
         <div class="mb-3">
             <div class="input-group">
               <div class="input-group-text">$</div>
-              <input type="number" name="price" class="form-control" id="autoSizingInputGroup" placeholder="0.0">
+              <input type="number" name="price" class="form-control" id="autoSizingInputGroup" placeholder="0.0" required>
+            </div>
+            <div class="valid-feedback">
+                Looks good!
             </div>
         </div>
 

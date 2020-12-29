@@ -1,13 +1,25 @@
-<% layout('layout/boilerplate') %> 
-    <h1>DETAILS</h1>
-    <ul>
-        <li>title : <%= a.title %> </li>
-        <li>location : <%= a.location %> </li>
-        <img src="<%= a.image %> ">
-        <p><%= a.discription %> </p>
-    </ul>
-    <a href="/cg/<%= a._id %>/edit">edit</a>
-    <a href="/cg">back</a>
-    <form action="/cg/<%= a._id %>?_method=DELETE" method="POST">
-        <button>delete</button>
-    </form>
+<% layout('layout/boilerplate') %>
+    <div class="row m-5" >
+    <div class="col-6 offset-3">
+    <!-- <h1 class="text-center">DETAILS</h1> -->
+    <div class="card"">
+        <img  src="<%= a.image %> " class="card-img-top" alt="...">
+        <div class="card-body">
+          <h4 class="card-title">Title</h4>
+          <p class="card-text"><%= a.title %></p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><b>Location : </b><%= a.location %></li>
+          <li class="list-group-item"><b>Discription : </b><%= a.discription %></li>
+          <li class="list-group-item"><b>Price : </b><%= a.price %></li>
+        </ul>
+        <div class="card-body">
+          <a href="/cg" class="btn btn-primary">Back</a>
+          <a href="/cg/<%=a._id%>/edit" class="btn btn-warning">Edit</a>
+          <form class="d-inline" action="/cg/<%=a._id%>?_method=DELETE" method="POST">
+            <button class="btn btn-danger">delete</button>
+        </form>
+        </div>
+      </div>
+      </div>
+      </div>
