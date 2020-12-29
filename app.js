@@ -123,11 +123,14 @@ app.delete('/cg/:id', catchAsync( async (req,res) => {
 
 app.get('/cg/:id', catchAsync( async (req,res) => {
     const {id}  = req.params;
-    const a = await Campground.findById(id);
+    const a = await Campground.findById(id).populate('reviews');
+    console.log(a);
     res.render('cg/show_detail',{a});
 }));
 
-
+app.delete('/cg/:id/reviews/:reviewId',async (req,res) => {
+    
+});
 
 app.get('/cg', catchAsync( async (req,res)=> {
     const camp = new Campground({title: "My backyard" , price : 100});
