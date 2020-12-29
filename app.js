@@ -129,7 +129,11 @@ app.get('/cg/:id', catchAsync( async (req,res) => {
 }));
 
 app.delete('/cg/:id/reviews/:reviewId',async (req,res) => {
-    
+    const {id,reviewId} = req.params;
+    await Campground.findByIdAndUpdate(id,{ $pull : {reviews : reviewId}});
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/cg/${id}`);
+    // res.send('sdfsfdf');
 });
 
 app.get('/cg', catchAsync( async (req,res)=> {

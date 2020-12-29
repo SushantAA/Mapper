@@ -46,6 +46,10 @@
                 <h5 class="card-title">Rating : <%=com.rating%></h5>
                 <p class="card-text" >Body : <%=com.body%></p>
               </div>
+              
+              <form action="/cg/<%=a._id%>/reviews/<%=com._id%>?_method=DELETE" method="POST">
+                <button class="btn btn-sm btn-danger">delete</button>
+              </form>
             </div>
           <% } %>
           </div>
