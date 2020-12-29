@@ -8,6 +8,7 @@ const { type } = require('os');
 const catchAsync = require('./utilities/catchAsync');
 const expresError = require('./utilities/expressError');
 const Joi = require('joi');
+const Review = require('./models/reviews')
 const { required } = require('joi');
 const { validate } = require('./models/campground');
 
@@ -49,6 +50,24 @@ const validatecg = (req,res,next) => {
 
 }
 
+
+app.post('/cg/:id/reviews',async (req,res)=>{
+    const id = req.params.id;
+    console.log(req.body);
+    const campground = await Campground.findById(req.params.id);
+    console.log('cg ', campground);
+    console.log('rev ', req.body.review);
+    const review = new Review(req.body.review);
+
+    campground.reviews.push(review);
+
+    await review.save();
+    await campground.save();
+
+    res.redirect(`/cg/${campground._id}`);
+
+});
+
 app.get('/', (req,res) => {
     res.render('home');
 });
@@ -74,6 +93,7 @@ app.put('/cg/:id', catchAsync( async(req,res,next) => {
     const a = await Campground.findByIdAndUpdate(id,req.body);
     res.redirect(`/cg/${id}`);
 }));
+
 
 app.get('/cg/:id/edit', catchAsync( async (req,res) => {
     const {id} = req.params;

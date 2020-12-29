@@ -1,25 +1,45 @@
 <% layout('layout/boilerplate') %>
     <div class="row m-5" >
-    <div class="col-6 offset-3">
-    <!-- <h1 class="text-center">DETAILS</h1> -->
-    <div class="card"">
-        <img  src="<%= a.image %> " class="card-img-top" alt="...">
-        <div class="card-body">
-          <h4 class="card-title">Title</h4>
-          <p class="card-text"><%= a.title %></p>
+      <div class="col-6 offset-3">
+      <!-- <h1 class="text-center">DETAILS</h1> -->
+      <div class="card"">
+          <img  src="<%= a.image %> " class="card-img-top" alt="...">
+          <div class="card-body">
+            <h4 class="card-title">Title</h4>
+            <p class="card-text"><%= a.title %></p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><b>Location : </b><%= a.location %></li>
+            <li class="list-group-item"><b>Discription : </b><%= a.discription %></li>
+            <li class="list-group-item"><b>Price : </b><%= a.price %></li>
+          </ul>
+          <div class="card-body">
+            <a href="/cg" class="btn btn-primary">Back</a>
+            <a href="/cg/<%=a._id%>/edit" class="btn btn-warning">Edit</a>
+            <form class="d-inline" action="/cg/<%=a._id%>?_method=DELETE" method="POST">
+              <button class="btn btn-danger">delete</button>
+          </form>
+          </div>
+          
+          <form action="/cg/<%=a._id%>/reviews" method="POST" novalidate class="new-edit-validation" >
+            
+            <h3> Give a review </h3>
+            
+            <div class="mb-3">
+              <label for="customRange1" class="form-label">Rating</label>
+              <input type="range" class="form-range" name="review[rating]" min="1" max="5" id="customRange1">
+            </div>
+
+            <div class="mb-3" >
+              <label for="exampleFormControlTextarea1" class="form-label">body</label>
+              <textarea class="form-control" name="review[body]" id="exampleFormControlTextarea1" rows="3" required></textarea>
+            </div>
+            
+              <button class="btn btn-success" >submmit</button>
+            
+          
+          </form>
+
         </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item"><b>Location : </b><%= a.location %></li>
-          <li class="list-group-item"><b>Discription : </b><%= a.discription %></li>
-          <li class="list-group-item"><b>Price : </b><%= a.price %></li>
-        </ul>
-        <div class="card-body">
-          <a href="/cg" class="btn btn-primary">Back</a>
-          <a href="/cg/<%=a._id%>/edit" class="btn btn-warning">Edit</a>
-          <form class="d-inline" action="/cg/<%=a._id%>?_method=DELETE" method="POST">
-            <button class="btn btn-danger">delete</button>
-        </form>
         </div>
-      </div>
-      </div>
       </div>
