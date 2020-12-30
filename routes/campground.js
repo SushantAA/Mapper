@@ -5,6 +5,7 @@ const catchAsync = require('../utilities/catchAsync');
 const expresError = require('../utilities/expressError');
 const {reviewSchema}  = require('../schemas');
 const Review = require('../models/reviews')
+const Joi = require('joi');
 
 const validatecg = (req,res,next) => {
     const campgroundSchema = Joi.object({
@@ -32,7 +33,7 @@ const validatecg = (req,res,next) => {
 
 const validateReview = (req,res,next) => {
     const {error} = reviewSchema.validate(req.body);
-    
+
     if(error){
         const msg = error.details.map(el=>el.message).join(',');
         console.log(msg);
@@ -58,6 +59,7 @@ router.get('/', catchAsync( async (req,res) => {
 router.post('/', validatecg ,catchAsync( async (req,res) => {
     const a = await Campground(req.body);
     await a.save();
+    req.flash('success','successfully made new mapper');
     res.redirect('/cg');
 }));
 

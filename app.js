@@ -10,6 +10,7 @@ const expresError = require('./utilities/expressError');
 const Joi = require('joi');
 const { required } = require('joi');
 const { validate } = require('./models/campground');
+const flash = require('connect-flash');
 
 const session = require('express-session');
 
@@ -31,6 +32,7 @@ app.set('views',path.join(__dirname,'views'));
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride('_method'));
 
+
 const sesssion_config = {
     secret : 'thisisabadsecret',
     resave : false,
@@ -42,6 +44,13 @@ const sesssion_config = {
     }
 };
 app.use(session(sesssion_config));
+app.use(flash());
+
+app.use((req,res,next)=> {
+    res.locals.success = req.flash('success');
+    next();
+});
+
 
 app.use(express.static('public'));
 
