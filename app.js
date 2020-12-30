@@ -11,6 +11,8 @@ const Joi = require('joi');
 const { required } = require('joi');
 const { validate } = require('./models/campground');
 
+const session = require('express-session');
+
 const campground_router = require('./routes/campground');
 const review_router = require('./routes/review');
 
@@ -28,6 +30,18 @@ app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'));
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride('_method'));
+
+const sesssion_config = {
+    secret : 'thisisabadsecret',
+    resave : false,
+    saveUninitialized : true,
+    cookie : {
+        httpOnly : true,
+        expires : Date.now() + 1000*60*60*24*7,
+        maxAge : 1000*60*60*24*7
+    }
+};
+app.use(session(sesssion_config));
 
 app.use(express.static('public'));
 
