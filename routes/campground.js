@@ -66,6 +66,7 @@ router.post('/', validatecg ,catchAsync( async (req,res) => {
 router.put('/:id', catchAsync( async(req,res,next) => {
     const {id} = req.params;
     const a = await Campground.findByIdAndUpdate(id,req.body);
+    req.flash('success','succesfully updated mapper');
     res.redirect(`/cg/${id}`);
 }));
 
@@ -79,6 +80,7 @@ router.get('/:id/edit', catchAsync( async (req,res) => {
 router.delete('/:id', catchAsync( async (req,res) => {
     const {id} = req.params;
     await Campground.findByIdAndDelete(id);
+    req.flash('success','succesfully deleted mapper');
     res.redirect(`/cg`);
 }));
 

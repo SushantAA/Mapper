@@ -56,6 +56,8 @@ router.post('/', validateReview ,async (req,res)=>{
     await review.save();
     await campground.save();
 
+    req.flash('success','succesfully add review to mapper');
+
     res.redirect(`/cg/${campground._id}`);
 
 });
@@ -64,6 +66,7 @@ router.delete('/:reviewId',async (req,res) => {
     const {id,reviewId} = req.params;
     await Campground.findByIdAndUpdate(id,{ $pull : {reviews : reviewId}});
     await Review.findByIdAndDelete(reviewId);
+    req.flash('success','succesfully deleted');
     res.redirect(`/cg/${id}`);
     // res.send('sdfsfdf');
 });
