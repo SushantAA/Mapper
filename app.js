@@ -12,6 +12,7 @@ const { required } = require('joi');
 const { validate } = require('./models/campground');
 
 const campground_router = require('./routes/campground');
+const review_router = require('./routes/review');
 
 const app = express();
 
@@ -28,9 +29,10 @@ app.set('views',path.join(__dirname,'views'));
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride('_method'));
 
-
+app.use(express.static('public'));
 
 app.use('/cg',campground_router);
+app.use('/cg/:id/reviews',review_router);
 
 app.get('/', (req,res) => {
     res.render('home');

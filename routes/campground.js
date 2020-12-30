@@ -43,22 +43,6 @@ const validateReview = (req,res,next) => {
 }
 
 
-router.post('/:id/reviews', validateReview ,async (req,res)=>{
-    const id = req.params.id;
-    console.log(req.body);
-    const campground = await Campground.findById(req.params.id);
-    console.log('cg ', campground);
-    console.log('rev ', req.body.review);
-    const review = new Review(req.body.review);
-
-    campground.reviews.push(review);
-
-    await review.save();
-    await campground.save();
-
-    res.redirect(`/cg/${campground._id}`);
-
-});
 
 
 router.get('/new', catchAsync( async (req,res) => {
@@ -102,14 +86,6 @@ router.get('/:id', catchAsync( async (req,res) => {
     console.log(a);
     res.render('cg/show_detail',{a});
 }));
-
-router.delete('/:id/reviews/:reviewId',async (req,res) => {
-    const {id,reviewId} = req.params;
-    await Campground.findByIdAndUpdate(id,{ $pull : {reviews : reviewId}});
-    await Review.findByIdAndDelete(reviewId);
-    res.redirect(`/cg/${id}`);
-    // res.send('sdfsfdf');
-});
 
 router.get('/', catchAsync( async (req,res)=> {
     const camp = new Campground({title: "My backyard" , price : 100});
