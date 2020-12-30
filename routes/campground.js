@@ -87,7 +87,11 @@ router.delete('/:id', catchAsync( async (req,res) => {
 router.get('/:id', catchAsync( async (req,res) => {
     const {id}  = req.params;
     const a = await Campground.findById(id).populate('reviews');
-    console.log(a);
+    if(!a){
+        req.flash('error','cannot find mapper');
+        return  res.redirect('/cg');
+    }
+    // console.log(a);
     res.render('cg/show_detail',{a});
 }));
 
