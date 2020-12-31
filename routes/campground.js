@@ -72,7 +72,7 @@ router.put('/:id', catchAsync( async(req,res,next) => {
 }));
 
 
-router.get('/:id/edit', catchAsync( async (req,res) => {
+router.get('/:id/edit',isLogedin ,catchAsync( async (req,res) => {
     const {id} = req.params;
     const a = await Campground.findById(id);
     res.render('cg/edit',{a});
