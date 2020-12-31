@@ -4,8 +4,9 @@ const Campground = require('../models/campground');
 const catchAsync = require('../utilities/catchAsync');
 const expresError = require('../utilities/expressError');
 const {reviewSchema}  = require('../schemas');
-const Review = require('../models/reviews')
+const Review = require('../models/reviews');
 const Joi = require('joi');
+const { isLogedin } = require('../middleware');
 
 const validatecg = (req,res,next) => {
     const campgroundSchema = Joi.object({
@@ -46,7 +47,7 @@ const validateReview = (req,res,next) => {
 
 
 
-router.get('/new', catchAsync( async (req,res) => {
+router.get('/new',isLogedin,catchAsync( async (req,res) => {
     res.render('cg/new');
 }));
 
@@ -56,7 +57,7 @@ router.get('/', catchAsync( async (req,res) => {
     res.render('cg/index',{all_cg})
 }));
 
-router.post('/', validatecg ,catchAsync( async (req,res) => {
+router.post('/', isLogedin ,validatecg ,catchAsync( async (req,res) => {
     const a = await Campground(req.body);
     await a.save();
     req.flash('success','successfully made new mapper');
