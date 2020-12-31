@@ -1,1 +1,41 @@
-<h1>Register []</h1>
+<% layout('layout/boilerplate') %> 
+
+<div class="row">
+<h1 class="text-center">New Mappe</h1>
+<div class="col-6 offset-3">
+
+    <form action="/register" method="POST" novalidate class="new-edit-validation" >
+
+        <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Username</label>
+            <input type="text" name="uername" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Email</label>
+            <input type="email" name="email" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder"  required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Password</label>
+            <input type="password" name="password" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder"  required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <button class="btn btn-success">submit</button>
+        </div>
+    </form>
+    <div class="mb-3">
+        <a href="/cg" class="btn btn-primary" >back</a>
+    </div>
+</div>
+</div>
