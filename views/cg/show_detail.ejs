@@ -14,13 +14,17 @@
             <li class="list-group-item"><b>Discription : </b><%= a.discription %></li>
             <li class="list-group-item"><b>Price : </b><%= a.price %></li>
           </ul>
+
+        <%  if( currentUser && a.author.equals(currentUser) ){ %>
           <div class="card-body">
-            <a href="/cg" class="btn btn-primary">Back</a>
-            <a href="/cg/<%=a._id%>/edit" class="btn btn-warning">Edit</a>
-            <form class="d-inline" action="/cg/<%=a._id%>?_method=DELETE" method="POST">
-              <button class="btn btn-danger">delete</button>
-          </form>
-        </div>
+              <a href="/cg" class="btn btn-primary">Back</a>
+              <a href="/cg/<%=a._id%>/edit" class="btn btn-warning">Edit</a>
+              <form class="d-inline" action="/cg/<%=a._id%>?_method=DELETE" method="POST">
+                <button class="btn btn-danger">delete</button>
+              </form>
+          </div>
+        <%  } %>
+
         </div>
         </div>
         <div class="col-6">
