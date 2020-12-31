@@ -31,17 +31,6 @@ const validatecg = (req,res,next) => {
 
 }
 
-// const isLogedin = (req,res,next) => {
-//     if(!req.isAuthenticated()){
-//         req.session.returnTo = req.originalUrl;
-//         console.log('req.originalUrl = ',req.originalUrl);
-//         console.log('req.session.returnTo = ',req.session.returnTo);
-//         req.flash('error','you , must be signed in');
-//         return res.redirect('/login');
-//     }
-//     next();
-// }
-
 const validateReview = (req,res,next) => {
     const {error} = reviewSchema.validate(req.body);
 
@@ -65,6 +54,16 @@ const isAuthor = async (req,res,next) =>{
     next();
 }
 
+const isReviewAuthor = async (req,res,next) =>{
+    const {reviewId , id} = req.params;
+    const aa = await Review.findById(reviewId);    
+    if(!aa.author.equals(req.user._id)){
+        req.flash('error','You don\'t have permission to edit' )
+        return  res.redirect(`/cg/${id}`);
+    }
+
+    next();
+}
 
 router.get('/new',isLogedin,catchAsync( async (req,res) => {
     res.render('cg/new');
@@ -107,7 +106,12 @@ router.delete('/:id',isAuthor ,catchAsync( async (req,res) => {
 
 router.get('/:id', catchAsync( async (req,res) => {
     const {id}  = req.params;
-    const a = await (await Campground.findById(id).populate('reviews').populate('author'));
+    const a = await (await Campground.findById(id).populate({
+        path : 'reviews',
+        populate : {
+            path : 'author'
+        }
+    }).populate('author'));
     console.log(a);
     if(!a){
         req.flash('error','cannot find mapper');

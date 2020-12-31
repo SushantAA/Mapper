@@ -46,18 +46,23 @@
               <button class="btn btn-success" >submmit</button>
           
           </form>
+          <% } %>
           <% for(let com of a.reviews){ %>
             <div class="card mb-3" >
               <div class="card-body">
                 <h5 class="card-title">Rating : <%=com.rating%></h5>
+                <h6 class="card-subtitle mb-2 text-muted">By <%= com.author.username %></h6>
+  
                 <p class="card-text" >Body : <%=com.body%></p>
+  
               </div>
-              
-              <form action="/cg/<%=a._id%>/reviews/<%=com._id%>?_method=DELETE" method="POST">
-                <button class="btn btn-sm btn-danger">delete</button>
-              </form>
+            
+              <%  if( currentUser && com.author.equals(currentUser) ){ %>
+                <form action="/cg/<%=a._id%>/reviews/<%=com._id%>?_method=DELETE" method="POST">
+                  <button class="btn btn-sm btn-danger">delete</button>
+                </form>
+              <%} %>
             </div>
-          <% } %>
           <% } %>
         </div>
 

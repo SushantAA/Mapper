@@ -31,6 +31,19 @@ const validatecg = (req,res,next) => {
 }
 
 
+
+const isReviewAuthor = async (req,res,next) =>{
+    const {reviewId , id} = req.params;
+    const aa = await Review.findById(reviewId);    
+    if(!aa.author.equals(req.user._id)){
+        req.flash('error','You don\'t have permission to edit' )
+        return  res.redirect(`/cg/${id}`);
+    }
+
+    next();
+}
+
+
 const validateReview = (req,res,next) => {
     const {error} = reviewSchema.validate(req.body);
     
@@ -61,7 +74,7 @@ router.post('/', isLogedin ,validateReview ,async (req,res)=>{
 
 });
 
-router.delete('/:reviewId',async (req,res) => {
+router.delete('/:reviewId',isReviewAuthor,async (req,res) => {
     const {id,reviewId} = req.params;
     await Campground.findByIdAndUpdate(id,{ $pull : {reviews : reviewId}});
     await Review.findByIdAndDelete(reviewId);
