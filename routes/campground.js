@@ -59,6 +59,7 @@ router.get('/', catchAsync( async (req,res) => {
 
 router.post('/', isLogedin ,validatecg ,catchAsync( async (req,res) => {
     const a = await Campground(req.body);
+    a.author = req.user._id;
     await a.save();
     req.flash('success','successfully made new mapper');
     res.redirect('/cg');
@@ -87,7 +88,8 @@ router.delete('/:id', catchAsync( async (req,res) => {
 
 router.get('/:id', catchAsync( async (req,res) => {
     const {id}  = req.params;
-    const a = await Campground.findById(id).populate('reviews');
+    const a = await (await Campground.findById(id).populate('reviews').populate('author'));
+    console.log(a);
     if(!a){
         req.flash('error','cannot find mapper');
         return  res.redirect('/cg');
