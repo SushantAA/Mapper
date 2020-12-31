@@ -11,13 +11,16 @@ const Joi = require('joi');
 const { required } = require('joi');
 const { validate } = require('./models/campground');
 const flash = require('connect-flash');
-
 const session = require('express-session');
+
+const  passport = require('passport');
+const LocalStrategy = require('passport-local');
 
 const campground_router = require('./routes/campground');
 const review_router = require('./routes/review');
 
 const app = express();
+const User = require('./models/user');
 
 mongoose.connect('mongodb://localhost:27017/mapper', {useNewUrlParser: true, useUnifiedTopology: true , useCreateIndex : true , useFindAndModify: false});
 const db = mongoose.connection;
@@ -46,12 +49,24 @@ const sesssion_config = {
 app.use(session(sesssion_config));
 app.use(flash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser()); 
+
 app.use((req,res,next)=> {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
 });
 
+app.get('/fakeUser',async (req,res) => {
+    const user = new User({email : 'sushantthedevil@gmail.com', username : 'devilsushant'});
+    const newUser = await User.register(user,'chicken');
+    res.send(newUser);
+})
 
 app.use(express.static('public'));
 
