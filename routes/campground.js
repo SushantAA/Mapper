@@ -44,7 +44,16 @@ const validateReview = (req,res,next) => {
     }
 }
 
+const isAuthor = async (req,res,next) =>{
+    const {id} = req.params;
+    const aa = await Campground.findById(id);    
+    if(!aa.author.equals(req.user._id)){
+        req.flash('error','You don\'t have permission to edit' )
+        return  res.redirect(`/cg/${id}`);
+    }
 
+    next();
+}
 
 
 router.get('/new',isLogedin,catchAsync( async (req,res) => {
@@ -65,46 +74,22 @@ router.post('/', isLogedin ,validatecg ,catchAsync( async (req,res) => {
     res.redirect('/cg');
 }));
 
-router.put('/:id', catchAsync( async(req,res,next) => {
+router.put('/:id',isAuthor,catchAsync( async(req,res,next) => {
     const {id} = req.params;
-    
-    const aa = await Campground.findById(id);
-    
-    if(!aa.author.equals(req.user._id)){
-        req.flash('error','You don\'t have permission to edit' )
-        return  res.redirect(`/cg/${id}`);
-    }
-
     const a = await Campground.findByIdAndUpdate(id,req.body);
     req.flash('success','succesfully updated mapper');
     res.redirect(`/cg/${id}`);
 }));
 
 
-router.get('/:id/edit',isLogedin ,catchAsync( async (req,res) => {
+router.get('/:id/edit',isLogedin , isAuthor ,catchAsync( async (req,res) => {
     const {id} = req.params;
-    
-    const aa = await Campground.findById(id);
-    
-    if(!aa.author.equals(req.user._id)){
-        req.flash('error','You don\'t have permission to edit' )
-        return  res.redirect(`/cg/${id}`);
-    }
-
     const a = await Campground.findById(id);
     res.render('cg/edit',{a});
 }));
 
-router.delete('/:id', catchAsync( async (req,res) => {
+router.delete('/:id',isAuthor ,catchAsync( async (req,res) => {
     const {id} = req.params;
-    
-    const aa = await Campground.findById(id);
-    
-    if(!aa.author.equals(req.user._id)){
-        req.flash('error','You don\'t have permission to edit' )
-        return  res.redirect(`/cg/${id}`);
-    }
-
     await Campground.findByIdAndDelete(id);
     req.flash('success','succesfully deleted mapper');
     res.redirect(`/cg`);
