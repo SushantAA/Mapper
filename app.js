@@ -22,6 +22,8 @@ const review_router = require('./routes/review');
 const app = express();
 const User = require('./models/user');
 
+const userRoutes = require('./routes/user');
+
 mongoose.connect('mongodb://localhost:27017/mapper', {useNewUrlParser: true, useUnifiedTopology: true , useCreateIndex : true , useFindAndModify: false});
 const db = mongoose.connection;
 db.on("error",console.error.bind(console , "connection err:"));
@@ -70,6 +72,7 @@ app.get('/fakeUser',async (req,res) => {
 
 app.use(express.static('public'));
 
+app.use('/',userRoutes);
 app.use('/cg',campground_router);
 app.use('/cg/:id/reviews',review_router);
 
