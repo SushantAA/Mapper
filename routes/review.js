@@ -5,6 +5,7 @@ const catchAsync = require('../utilities/catchAsync');
 const expresError = require('../utilities/expressError');
 const {reviewSchema}  = require('../schemas');
 const Review = require('../models/reviews')
+const { isLogedin } = require('../middleware');
 
 const validatecg = (req,res,next) => {
     const campgroundSchema = Joi.object({
@@ -43,13 +44,11 @@ const validateReview = (req,res,next) => {
 }
 
 
-router.post('/', validateReview ,async (req,res)=>{
+router.post('/', isLogedin ,validateReview ,async (req,res)=>{
     const id = req.params.id;
-    console.log(req.body);
     const campground = await Campground.findById(req.params.id);
-    console.log('cg ', campground);
-    console.log('rev ', req.body.review);
     const review = new Review(req.body.review);
+    review.author = req.user._id;
 
     campground.reviews.push(review);
 

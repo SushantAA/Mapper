@@ -32,7 +32,8 @@ router.get('/login',(req,res)=>{
 router.post('/login', passport.authenticate('local', { failureFlash : true , failureRedirect : '/login' }) ,catchAsync (async ( req, res) => {
     req.flash('success','welcome back');
     const redirectUrl = req.session.returnTo || '/cg';
-    delete req.session.returnTo;
+    // delete req.session.returnTo;
+    console.log(redirectUrl , 'return to = ' , req.session.returnTo);
     res.redirect(redirectUrl);
 }));
 
