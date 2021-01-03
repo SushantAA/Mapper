@@ -23,6 +23,7 @@
 
     <script>
         const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+        const mapper = {features: <%-JSON.stringify(all_cg)%>}
     </script>
 
 <script src="/scripts/clusterMap.js"></script>
