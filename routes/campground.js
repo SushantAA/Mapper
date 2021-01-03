@@ -7,8 +7,11 @@ const {reviewSchema}  = require('../schemas');
 const Review = require('../models/reviews');
 const Joi = require('joi');
 const { isLogedin } = require('../middleware');
-var multer  = require('multer')
-var upload = multer({ dest: 'uploads/' })
+var multer  = require('multer');
+
+const  {storage} = require('../cloudinary/index');
+
+var upload = multer({ storage });
 
 const validatecg = (req,res,next) => {
     const campgroundSchema = Joi.object({
