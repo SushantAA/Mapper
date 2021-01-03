@@ -18,7 +18,7 @@ const validatecg = (req,res,next) => {
         // Campground : Joi.object({
             title : Joi.string().required(),
             price : Joi.number().required().min(0),
-            image :  Joi.string().required(),
+            // image :  Joi.string().required(),
             location : Joi.string().required(),
             discription : Joi.string().required()
         // }).required()
@@ -80,19 +80,21 @@ router.get('/', catchAsync( async (req,res) => {
     res.render('cg/index',{all_cg})
 }));
 
-// router.post('/', isLogedin ,validatecg ,catchAsync( async (req,res) => {
-//     const a = await Campground(req.body);
-//     a.author = req.user._id;
-//     await a.save();
-//     req.flash('success','successfully made new mapper');
-//     res.redirect('/cg');
-// }));
+router.post('/', isLogedin ,upload.array('image'),validatecg ,catchAsync( async (req,res) => {
+    const a = await Campground(req.body);
+    a.image = req.files.map(f => ({ url: f.path,filename: f.filename }));
+    a.author = req.user._id;
+    await a.save();
+    console.log(a);
+    req.flash('success','successfully made new mapper');
+    res.redirect('/cg');
+}));
 
-router.post('/',  upload.array('image')  , (req,res) => {
-   console.log(req.body);
-   console.log('file = ',req.files);
-    res.send('it worked ?');
-});
+// router.post('/',  upload.array('image')  , (req,res) => {
+//    console.log(req.body);
+//    console.log('file = ',req.files);
+//     res.send('it worked ?');
+// });
 
 router.put('/:id',isAuthor,catchAsync( async(req,res,next) => {
     const {id} = req.params;

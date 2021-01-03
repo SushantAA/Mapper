@@ -3,7 +3,8 @@
         <h1 class="text-center">Edit Mappe</h1>
         <div class="col-6 offset-3">
         
-    <form action="/cg/<%=a._id%>?_method=PUT" method="POST" novalidate class="new-edit-validation">
+    <form action="/cg/<%=a._id%>?_method=PUT" method="POST" novalidate class="new-edit-validation"
+        enctype="multipart/form-data" >
         
                 <div class="mb-3">
                     <label for="formGroupExampleInput" class="form-label" >Title</label>
