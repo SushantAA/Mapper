@@ -5,7 +5,9 @@
     <% for(let a of all_cg){ %>
         <div class="col-auto">
             <div class="card m-2" style="width: 18rem;">
+                <% if(a.image.length){ %> 
                 <img  src="<%= a.image[0].url %> " class="card-img-top" >
+                <% } %> 
                 <div class="card-body">
                 <h5 class="card-title"><%= a.title %></h5>
                 <p class="card-text"><%= a.location %></p>
