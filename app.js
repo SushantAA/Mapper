@@ -17,6 +17,8 @@ const { validate } = require('./models/campground');
 const flash = require('connect-flash');
 const session = require('express-session');
 
+const helmet = require('helmet');
+
 const mongoSanitize = require('express-mongo-sanitize');
 
 const  passport = require('passport');
@@ -29,7 +31,10 @@ const app = express();
 const User = require('./models/user');
 
 const userRoutes = require('./routes/user');
+const { contentSecurityPolicy } = require('helmet');
 
+// const dbUrl = process.env.DB_URL;
+// 'mongodb://localhost:27017/mapper'
 mongoose.connect('mongodb://localhost:27017/mapper', {useNewUrlParser: true, useUnifiedTopology: true , useCreateIndex : true , useFindAndModify: false});
 const db = mongoose.connection;
 db.on("error",console.error.bind(console , "connection err:"));
@@ -42,6 +47,7 @@ app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'));
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride('_method'));
+app.use(helmet( {contentSecurityPolicy: false} ));
 
 
 const sesssion_config = {
