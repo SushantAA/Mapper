@@ -21,9 +21,13 @@
                     <textarea class="form-control" name="discription" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" required><%=a.discription%></textarea>
                 </div>
                 
-                <div class="mb-3">
-                    <label for="formGroupExampleInput" class="form-label">Image</label>
-                    <input type="text" name="image" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder" value="<%=a.image%>" required>
+                <!-- <div class="mb-3">
+                    <label for="formGroupExampleInput" class="form-label">Add Image</label>
+                    <input type="file" name="image" id="form-label" multiple>    
+                </div> -->
+                <div class="mb-3 custom-file">
+                    <label for="formFileMultiple" class="form-label coustom-file-lable">Add Image</label>
+                    <input class="form-control" type="file" name="image" id="formFileMultiple" multiple>
                 </div>
         
                 <div class="mb-3">
@@ -31,6 +35,16 @@
                       <div class="input-group-text">$</div>
                       <input type="number" name="price" class="form-control" id="autoSizingInputGroup" placeholder="0.0" value="<%=a.price%>" required>
                     </div>
+                </div>
+
+                <div class="mb-3">
+                    <% a.image.forEach( (ai,i) => { %>
+                        <img src="<%=ai.url %>" class="img-thumbnail" alt="" id="image-<%=i%>" >    
+                        <div class="form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="deleteImage[]" value="<%=ai.filename%>" id="image-<%=i%>">
+                        </div>
+                        <label class="form-check-label" for="image-<%=i%>">Delete ?</label>  
+                    <% }) %>
                 </div>
         
                 <div class="mb-3">

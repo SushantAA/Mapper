@@ -9,7 +9,7 @@ const Joi = require('joi');
 const { isLogedin } = require('../middleware');
 var multer  = require('multer');
 
-const  {storage} = require('../cloudinary/index');
+const  {storage, cloudinary} = require('../cloudinary/index');
 
 var upload = multer({ storage });
 
@@ -96,9 +96,25 @@ router.post('/', isLogedin ,upload.array('image'),validatecg ,catchAsync( async 
 //     res.send('it worked ?');
 // });
 
-router.put('/:id',isAuthor,catchAsync( async(req,res,next) => {
+router.put('/:id',isAuthor, upload.array('image') ,catchAsync( async(req,res,next) => {
     const {id} = req.params;
+    console.log(req.body);
     const a = await Campground.findByIdAndUpdate(id,req.body);
+    
+    if(req.body.deleteImage){
+
+        for(let ai of req.body.deleteImage){
+            await cloudinary.uploader.destroy(ai);
+        }
+
+        console.log('----------------------------------');
+        await a.updateOne({ $pull: { image: { filename: { $in: req.body.deleteImage } }} })
+        console.log(req.body);
+    }
+
+    const arr = req.files.map(f => ({ url: f.path,filename: f.filename }));
+    a.image.push(...arr);
+    await a.save();
     req.flash('success','succesfully updated mapper');
     res.redirect(`/cg/${id}`);
 }));
