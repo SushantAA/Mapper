@@ -1,4 +1,7 @@
 <% layout('layout/boilerplate') %> 
+
+    <div id="map" style="width: 100%; height: 500px" ></div>
+
     <h1>cg all</h1>
     <a href="/cg/new">create new</a> <br>
     <div class="row" >
@@ -17,3 +20,9 @@
         </div>
     <% } %>
     </div>
+
+    <script>
+        const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+    </script>
+
+<script src="/scripts/clusterMap.js"></script>
