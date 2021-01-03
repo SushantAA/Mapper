@@ -17,6 +17,8 @@ const { validate } = require('./models/campground');
 const flash = require('connect-flash');
 const session = require('express-session');
 
+const mongoSanitize = require('express-mongo-sanitize');
+
 const  passport = require('passport');
 const LocalStrategy = require('passport-local');
 
@@ -80,6 +82,7 @@ app.use(express.static('public'));
 app.use('/',userRoutes);
 app.use('/cg',campground_router);
 app.use('/cg/:id/reviews',review_router);
+app.use(mongoSanitize());
 
 app.get('/', (req,res) => {
     res.render('home');
