@@ -1,7 +1,5 @@
 <% layout('layout/boilerplate') %>
 
-<div id='map' style='width: 400px; height: 300px;'></div>
-
 <link rel="stylesheet" href="/style/star_logic.css">
 
     <div class="row m-5" >
@@ -56,6 +54,7 @@
         </div>
         </div>
         <div class="col-6">
+          <div id='map' style='width: 400px; height: 300px;'></div>
           <% if(currentUser){ %>
           <form action="/cg/<%=a._id%>/reviews" method="POST" novalidate class="new-edit-validation" >
             
@@ -119,7 +118,7 @@
       
 <script>
   const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
-  const ag = <%-JSON.stringify(a.geometry.coordinates)%>
+  const ag = <%-JSON.stringify(a)%>
 </script>
 
 <script src="/scripts/showMap.js" ></script>
