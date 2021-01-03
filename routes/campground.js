@@ -7,6 +7,8 @@ const {reviewSchema}  = require('../schemas');
 const Review = require('../models/reviews');
 const Joi = require('joi');
 const { isLogedin } = require('../middleware');
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' })
 
 const validatecg = (req,res,next) => {
     const campgroundSchema = Joi.object({
@@ -75,13 +77,19 @@ router.get('/', catchAsync( async (req,res) => {
     res.render('cg/index',{all_cg})
 }));
 
-router.post('/', isLogedin ,validatecg ,catchAsync( async (req,res) => {
-    const a = await Campground(req.body);
-    a.author = req.user._id;
-    await a.save();
-    req.flash('success','successfully made new mapper');
-    res.redirect('/cg');
-}));
+// router.post('/', isLogedin ,validatecg ,catchAsync( async (req,res) => {
+//     const a = await Campground(req.body);
+//     a.author = req.user._id;
+//     await a.save();
+//     req.flash('success','successfully made new mapper');
+//     res.redirect('/cg');
+// }));
+
+router.post('/',  upload.array('image')  , (req,res) => {
+   console.log(req.body);
+   console.log('file = ',req.files);
+    res.send('it worked ?');
+});
 
 router.put('/:id',isAuthor,catchAsync( async(req,res,next) => {
     const {id} = req.params;

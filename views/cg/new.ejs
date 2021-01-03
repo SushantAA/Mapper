@@ -4,7 +4,7 @@
 <h1 class="text-center">New Mappe</h1>
 <div class="col-6 offset-3">
 
-    <form action="/cg" method="POST" novalidate class="new-edit-validation" >
+    <form action="/cg" method="POST" novalidate class="new-edit-validation" enctype="multipart/form-data">
 
         <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Title</label>
@@ -30,13 +30,15 @@
             </div>
         </div>
         
-        <div class="mb-3">
+        <!-- <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Image</label>
             <input type="text" name="image" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder" required>
             <div class="valid-feedback">
                 Looks good!
             </div>
-        </div>
+        </div> -->
+
+        <input type="file" name="image" id="" multiple>
 
         <div class="mb-3">
             <div class="input-group">
