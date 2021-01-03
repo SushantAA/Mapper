@@ -33,9 +33,11 @@ const User = require('./models/user');
 const userRoutes = require('./routes/user');
 const { contentSecurityPolicy } = require('helmet');
 
+const MongoStore = require('connect-mongo')(session);
+
 // const dbUrl = process.env.DB_URL;
-// 'mongodb://localhost:27017/mapper'
-mongoose.connect('mongodb://localhost:27017/mapper', {useNewUrlParser: true, useUnifiedTopology: true , useCreateIndex : true , useFindAndModify: false});
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/mapper';
+mongoose.connect( dbUrl , {useNewUrlParser: true, useUnifiedTopology: true , useCreateIndex : true , useFindAndModify: false});
 const db = mongoose.connection;
 db.on("error",console.error.bind(console , "connection err:"));
 db.once("open", () => {
@@ -49,9 +51,21 @@ app.use(express.urlencoded({extended:true}));
 app.use(methodOverride('_method'));
 app.use(helmet( {contentSecurityPolicy: false} ));
 
+const secret =  process.env.SECRET || 'secretshouldbebetter';
+
+const store = new MongoStore({
+    url:dbUrl,
+    secret,
+    touchAfter: 24*60*60
+})
+
+store.on("error", function (e) {
+    console.log("SESSION STORE ERROR",e);
+})
 
 const sesssion_config = {
-    secret : 'thisisabadsecret',
+    store,
+    secret,
     resave : false,
     saveUninitialized : true,
     cookie : {
