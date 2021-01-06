@@ -1,20 +1,21 @@
 <% layout('layout/boilerplate') %> 
+<link rel="stylesheet" href="/style/index.css">
 
-    <div id="map" style="width: 100%; height: 500px" ></div>
+    <div id="map" style="width: 100%; height: 23rem" ></div>
 
-    <h1>cg all</h1>
-    <a href="/cg/new">create new</a> <br>
+    <h1 class="header" >All Mapper' s</h1>
+    <a href="/cg/new" class="btn btn-secondary">create new</a> <br>
     <div class="row" >
     <% for(let a of all_cg){ %>
-        <div class="col-auto">
-            <div class="card m-2" style="width: 18rem;">
+        <div class="col-lg-4 col-sm-6 col-xs-12 mb-3">
+            <div class="card m-2" >
                 <% if(a.image.length){ %> 
-                <img  src="<%= a.image[0].url %> " class="card-img-top" >
+                <img  src="<%= a.image[0].url %> " class="card-img-top" style='width: auto; height: 13rem;'  >
                 <% } %> 
-                <div class="card-body">
+                <div class="card-body"  >
                 <h5 class="card-title"><%= a.title %></h5>
                 <p class="card-text"><%= a.location %></p>
-                <a href="/cg/<%= a._id %>" class="btn btn-primary">Details</a>
+                <a href="/cg/<%= a._id %>" class="btn btn-sm btn-info">Details</a>
                 </div>
             </div>
         </div>

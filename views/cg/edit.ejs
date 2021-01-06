@@ -1,39 +1,49 @@
 <% layout('layout/boilerplate') %>
-    <div class="row">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+<style>
+    body{
+        background: #FF5F6D;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #FFC371, #FF5F6D);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #FFC371, #FF5F6D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    }
+</style>
+    <div class="container">
+    <div class="row justify-content-center ">
         <h1 class="text-center">Edit Mappe</h1>
-        <div class="col-6 offset-3">
+        <div class="col-6" >
         
     <form action="/cg/<%=a._id%>?_method=PUT" method="POST" novalidate class="new-edit-validation"
         enctype="multipart/form-data" >
         
-                <div class="mb-3">
-                    <label for="formGroupExampleInput" class="form-label" >Title</label>
-                    <input type="text" name="title" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder" value="<%=a.title %>" required>
+                <div class=" row mb-3 justify-content-center ">
+                    <h5 for="formGroupExampleInput" class="form-label   " >Title</h5>
+                    <input type="text" name="title" class="form-control justify-content-center " id="formGroupExampleInput" placeholder="Example input placeholder" value="<%=a.title %>" required>
                 </div>
         
-                <div class="mb-3">
-                    <label for="formGroupExampleInput" class="form-label">Location</label>
-                    <input type="text" name="location" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder" value="<%=a.location%>" required>
+                <div class="row mb-3 justify-content-center">
+                    <h5 for="formGroupExampleInput" class="form-label">Location</h5>
+                    <input type="text" name="location" class="form-control justify-content-center" id="formGroupExampleInput" placeholder="Example input placeholder" value="<%=a.location%>" required>
                 </div>
         
-                <div class="mb-3">
-                    <label for="formGroupExampleInput" class="form-label">Discription</label>
-                    <textarea class="form-control" name="discription" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" required><%=a.discription%></textarea>
+                <div class="row mb-3 justify-content-center">
+                    <h5 for="formGroupExampleInput" class="form-label">Discription</h5>
+                    <textarea class="form-control justify-content-center" name="discription" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" required><%=a.discription%></textarea>
                 </div>
                 
                 <!-- <div class="mb-3">
                     <label for="formGroupExampleInput" class="form-label">Add Image</label>
                     <input type="file" name="image" id="form-label" multiple>    
                 </div> -->
-                <div class="mb-3 custom-file">
-                    <label for="formFileMultiple" class="form-label coustom-file-lable">Add Image</label>
-                    <input class="form-control" type="file" name="image" id="formFileMultiple" multiple>
+                <div class="row mb-3 justify-content-center custom-file">
+                    <h5 for="formFileMultiple" class="form-label coustom-file-lable">Add Image</h5>
+                    <input class="form-control justify-content-center" type="file" name="image" id="formFileMultiple" multiple>
                 </div>
         
-                <div class="mb-3">
+                <div class="row mb-3 justify-content-center">
                     <div class="input-group">
                       <div class="input-group-text">$</div>
-                      <input type="number" name="price" class="form-control" id="autoSizingInputGroup" placeholder="0.0" value="<%=a.price%>" required>
+                      <input type="number" name="price" class="form-control justify-content-center" id="autoSizingInputGroup" placeholder="0.0" value="<%=a.price%>" required>
                     </div>
                 </div>
 
@@ -43,19 +53,14 @@
                         <div class="form-check-inline">
                             <input class="form-check-input" type="checkbox" name="deleteImage[]" value="<%=ai.filename%>" id="image-<%=i%>">
                         </div>
-                        <label class="form-check-label" for="image-<%=i%>">Delete ?</label>  
+                        <label class="form-check-label" for="image-<%=i%>"><i class="fas fa-trash-alt"></i></label>  
                     <% }) %>
                 </div>
         
-                <div class="mb-3">
+                <div class="mb-3" style="text-align: center;">
                     <button class="btn btn-success">submit</button>
                 </div>
             </form>
-            <div class="mb-3">
-                <a href="/cg" class="btn btn-primary" >back</a>
-            </div>
         </div>
         </div>
-
-        
-    <a href="/cg/<%=a._id %>">back</a>
+        </div>
