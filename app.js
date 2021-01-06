@@ -35,8 +35,8 @@ const { contentSecurityPolicy } = require('helmet');
 
 const MongoStore = require('connect-mongo')(session);
 
-const dbUrl = 'mongodb://localhost:27017/mapper';
-// const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/mapper';
+// const dbUrl = 'mongodb://localhost:27017/mapper';
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/mapper';
 mongoose.connect( dbUrl , {useNewUrlParser: true, useUnifiedTopology: true , useCreateIndex : true , useFindAndModify: false});
 const db = mongoose.connection;
 db.on("error",console.error.bind(console , "connection err:"));
