@@ -1,5 +1,5 @@
 # Mapper - A Website to Review Places on Earth
 ## HOW TO RUN
-* npm i
-* node index.js
-* localhost:3000
+* `npm i`
+* `node app.js`
+* `localhost:3030`
